@@ -14,6 +14,7 @@
             <li><a href="#jogo">Jogo</a></li>
             <li><a href="#carta">Carta</a></li>
             <li><a href="#timeline">Linha do Tempo</a></li>
+            <li><a href="#galeria">Galeria</a></li>
         </ul>
     </nav>
 
@@ -40,15 +41,28 @@
         <!-- Seção 2: Carta Romântica -->
         <section id="carta" class="section">
             <div class="container">
+                <!-- Contador de Tempo Juntos -->
+                <div class="counter-container">
+                    <h3>Estamos juntos há:</h3>
+                    <div id="relationship-counter" class="counter">
+                        <!-- Preenchido pelo JS -->
+                        <div class="counter-item"><span id="days">0</span><p>Dias</p></div>
+                        <div class="counter-item"><span id="hours">0</span><p>Horas</p></div>
+                        <div class="counter-item"><span id="minutes">0</span><p>Minutos</p></div>
+                        <div class="counter-item"><span id="seconds">0</span><p>Segundos</p></div>
+                    </div>
+                </div>
+
                 <div class="letter-box">
                     <h2 id="casal-names">Nomes do Casal</h2>
                     <!-- TEXTO PERSONALIZÁVEL DA CARTA -->
                     <div id="letter-content" class="letter-content">
-                        <!-- O efeito de digitação automática preencherá este espaço -->
+                        <!-- Efeito typewriter -->
                     </div>
                 </div>
             </div>
         </section>
+
 
         <!-- Seção 3: Linha do Tempo -->
         <section id="timeline" class="section">
@@ -59,7 +73,30 @@
                 </div>
             </div>
         </section>
+
+
+
+        <!-- Seção 5: Galeria -->
+        <section id="galeria" class="section">
+            <div class="container">
+                <h2>Nossa Galeria</h2>
+                <div class="carousel-container">
+                    <div id="carousel-track" class="carousel-track">
+                        <!-- Imagens geradas pelo JS -->
+                    </div>
+                    <button class="carousel-btn prev" id="prevBtn">❮</button>
+                    <button class="carousel-btn next" id="nextBtn">❯</button>
+                </div>
+            </div>
+        </section>
     </main>
+
+        <!-- Modal da Galeria -->
+    <div id="image-modal" class="modal">
+        <span class="close-modal">&times;</span>
+        <img class="modal-content" id="modal-img">
+        <div id="modal-caption"></div>
+    </div>
 
     <footer>
         <p>Feito com ❤️ para você</p>
