@@ -28,7 +28,7 @@ João.`;
     // EVENTOS DA LINHA DO TEMPO (eventosDoCasal)
     const eventosDoCasal = [
         {
-            data: "11 de Janeiro de 2026",
+            data: "18 de Janeiro de 2026",
             titulo: "O Primeiro Encontro",
             descricao: "Aquele encontro onde conversamos por horas e o tempo pareceu parar."
         },
@@ -45,12 +45,42 @@ João.`;
         
     ];
 
+    // DATA DE INÍCIO DO RELACIONAMENTO (Formato: AAAA-MM-DDTHH:MM:SS)
+    const DATA_INICIO_RELACIONAMENTO = "2026-01-11T19:30:00";
+
+
+        // GALERIA DO CASAL (galeriaDoCasal)
+    // Dica: Substitua as URLs pelas fotos reais do casal
+    const galeriaDoCasal = [
+        { url: "img/01.jpeg", legenda: "Nosso primeiro jantar romântico" },
+        { url: "img/02.jpeg", legenda: "Passeio inesquecível no parque" },
+        { url: "img/03.jpeg", legenda: "Celebrando pequenas vitórias" },
+        { url: "img/04.jpeg", legenda: "Sempre juntos, em qualquer lugar" }
+    ];
+
     // ==========================================
-    // LÓGICA DO SITE (NÃO MODIFICAR ABAIXO)
+    // LÓGICA DO SITE 
     // ==========================================
 
     // Inicializar Nomes
     document.getElementById('casal-names').innerText = NOMES_DO_CASAL;
+    function updateCounter() {
+        const start = new Date(DATA_INICIO_RELACIONAMENTO);
+        const now = new Date();
+        const diff = now - start;
+
+        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const m = Math.floor((diff / (1000 * 60)) % 60);
+        const s = Math.floor((diff / 1000) % 60);
+
+        document.getElementById('days').innerText = d;
+        document.getElementById('hours').innerText = h;
+        document.getElementById('minutes').innerText = m;
+        document.getElementById('seconds').innerText = s;
+    }
+    setInterval(updateCounter, 1000);
+    updateCounter();
 
     // --- JOGO: CAPTURE OS CORAÇÕES ---
     const gameArea = document.getElementById('game-area');
@@ -146,34 +176,42 @@ João.`;
     letterObserver.observe(document.getElementById('carta'));
 
     // --- LINHA DO TEMPO: GERAÇÃO DINÂMICA ---
-    const timelineContainer = document.getElementById('timeline-container');
+  const tlCont = document.getElementById('timeline-container');
+    eventosDoCasal.forEach((ev, i) => {
+        const div = document.createElement('div');
+        div.className = `timeline-item ${i % 2 === 0 ? 'left' : 'right'}`;
+        div.innerHTML = `<div class="timeline-content"><span>${ev.data}</span><h3>${ev.titulo}</h3><p>${ev.descricao}</p></div>`;
+        tlCont.appendChild(div);
+    });
+    const tlObs = new IntersectionObserver((entries) => {
+        entries.forEach(en => { if(en.isIntersecting) en.target.classList.add('visible'); });
+    }, { threshold: 0.2 });
+    document.querySelectorAll('.timeline-item').forEach(it => tlObs.observe(it));
 
-    eventosDoCasal.forEach((evento, index) => {
-        const item = document.createElement('div');
-        item.classList.add('timeline-item');
-        item.classList.add(index % 2 === 0 ? 'left' : 'right');
-        
-        item.innerHTML = `
-            <div class="timeline-content">
-                <span>${evento.data}</span>
-                <h3>${evento.titulo}</h3>
-                <p>${evento.descricao}</p>
-            </div>
-        `;
-        
-        timelineContainer.appendChild(item);
+    //GALERIA: CARROSSEL E MODAL
+    const track = document.getElementById('carousel-track');
+    galeriaDoCasal.forEach((img, i) => {
+        const slide = document.createElement('div');
+        slide.className = 'carousel-slide';
+        slide.innerHTML = `<img src="${img.url}" alt="${img.legenda}"><div class="carousel-caption">${img.legenda}</div>`;
+        slide.onclick = () => openModal(img.url, img.legenda);
+        track.appendChild(slide);
     });
 
-    // Animação ao rolar a linha do tempo
-    const timelineItems = document.querySelectorAll('.timeline-item');
-    const timelineObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-            }
-        });
-    }, { threshold: 0.2 });
+    let currSlide = 0;
+    const updateCarousel = () => track.style.transform = `translateX(-${currSlide * 100}%)`;
+    document.getElementById('nextBtn').onclick = () => { currSlide = (currSlide + 1) % galeriaDoCasal.length; updateCarousel(); };
+    document.getElementById('prevBtn').onclick = () => { currSlide = (currSlide - 1 + galeriaDoCasal.length) % galeriaDoCasal.length; updateCarousel(); };
 
-    timelineItems.forEach(item => timelineObserver.observe(item));
+    const modal = document.getElementById('image-modal');
+    const modalImg = document.getElementById('modal-img');
+    const modalCap = document.getElementById('modal-caption');
+    function openModal(url, cap) {
+        modal.style.display = "flex";
+        modalImg.src = url;
+        modalCap.innerText = cap;
+    }
+    document.querySelector('.close-modal').onclick = () => modal.style.display = "none";
+    window.onclick = (e) => { if(e.target == modal) modal.style.display = "none"; };
 
 });
