@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nosso Amor - Site Romântico</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Menu Superior Fixo -->
+    <nav class="navbar">
+        <ul>
+            <li><a href="#jogo">Jogo</a></li>
+            <li><a href="#carta">Carta</a></li>
+            <li><a href="#timeline">Linha do Tempo</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <!-- Seção 1: Jogo "Capture os Corações" -->
+        <section id="jogo" class="section">
+            <div class="container">
+                <h2>Capture os Corações</h2>
+                <p>Clique nos corações que aparecem para ganhar pontos!</p>
+                <div class="game-stats">
+                    <span>Pontos: <span id="score">0</span></span> | 
+                    <span>Tempo: <span id="timer">30</span>s</span>
+                </div>
+                <div id="game-area" class="game-area">
+                    <button id="start-game-btn" class="btn">Começar Jogo</button>
+                </div>
+                <!-- TEXTO PERSONALIZÁVEL DO JOGO -->
+                <div id="game-message" class="hidden message-box">
+                    <!-- O conteúdo abaixo será preenchido pelo JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção 2: Carta Romântica -->
+        <section id="carta" class="section">
+            <div class="container">
+                <div class="letter-box">
+                    <h2 id="casal-names">Nomes do Casal</h2>
+                    <!-- TEXTO PERSONALIZÁVEL DA CARTA -->
+                    <div id="letter-content" class="letter-content">
+                        <!-- O efeito de digitação automática preencherá este espaço -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção 3: Linha do Tempo -->
+        <section id="timeline" class="section">
+            <div class="container">
+                <h2>Nossa História</h2>
+                <div id="timeline-container" class="timeline">
+                    <!-- Eventos serão gerados dinamicamente pelo JavaScript -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Feito com ❤️ para você</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
