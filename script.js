@@ -52,10 +52,10 @@ João.`;
         // GALERIA DO CASAL (galeriaDoCasal)
     // Dica: Substitua as URLs pelas fotos reais do casal
     const galeriaDoCasal = [
-        { url: "01.jpeg", legenda: "Nosso primeiro jantar romântico" },
-        { url: "02.jpeg", legenda: "Passeio inesquecível no parque" },
-        { url: "03.jpeg", legenda: "Celebrando pequenas vitórias" },
-        { url: "04.jpeg", legenda: "Sempre juntos, em qualquer lugar" }
+        { url: "/01.jpeg", legenda: "Nosso primeiro jantar romântico" },
+        { url: "/02.jpeg", legenda: "Passeio inesquecível no parque" },
+        { url: "/03.jpeg", legenda: "Celebrando pequenas vitórias" },
+        { url: "/04.jpeg", legenda: "Sempre juntos, em qualquer lugar" }
     ];
 
     // ==========================================
