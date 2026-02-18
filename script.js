@@ -28,7 +28,7 @@ João.`;
     // EVENTOS DA LINHA DO TEMPO (eventosDoCasal)
     const eventosDoCasal = [
         {
-            data: "18 de Janeiro de 2026",
+            data: "11 de Janeiro de 2026",
             titulo: "O Primeiro Encontro",
             descricao: "Aquele encontro onde conversamos por horas e o tempo pareceu parar."
         },
