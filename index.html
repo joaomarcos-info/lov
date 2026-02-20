@@ -12,8 +12,13 @@
     <nav class="navbar">
         <ul>
             <li><a href="#jogo">Jogo</a></li>
+            <li><a href="#jogo1">Corações</a></li>
+            <li><a href="#memoria">Memória</a></li>
+            <li><a href="#frase">Frase</a></li>
+            <li><a href="#medidor">Medidor</a></li>
+            <li><a href="#combina">Associação</a></li>
             <li><a href="#carta">Carta</a></li>
-            <li><a href="#timeline">Linha do Tempo</a></li>
+            <li><a href="#timeline">História</a></li>
             <li><a href="#galeria">Galeria</a></li>
         </ul>
     </nav>
@@ -75,6 +80,69 @@
         </section>
 
 
+                <!-- 3. Jogo da Memória -->
+        <section id="memoria" class="section">
+            <div class="container">
+                <h2>Jogo da Memória</h2>
+                <div class="game-stats">
+                    <span>Tentativas: <span id="mem-tries">0</span></span> | <span>Tempo: <span id="mem-timer">0</span>s</span>
+                </div>
+                <div id="memory-grid" class="memory-grid">
+                    <!-- Gerado pelo JS -->
+                </div>
+                <button id="start-mem-btn" class="btn">Iniciar Memória</button>
+                <div id="mem-message" class="hidden message-box"></div>
+            </div>
+        </section>
+
+
+                <!-- 4. Monte a Frase -->
+        <section id="frase" class="section">
+            <div class="container">
+                <h2>Monte a Frase do Amor</h2>
+                <p>Clique nas palavras na ordem correta para formar a frase!</p>
+                <div id="words-container" class="words-container"></div>
+                <div id="sentence-display" class="sentence-display">Sua frase aparecerá aqui...</div>
+                <div class="btn-group">
+                    <button id="check-phrase-btn" class="btn">Verificar</button>
+                    <button id="reset-phrase-btn" class="btn secondary">Limpar</button>
+                </div>
+                <div id="phrase-message" class="hidden message-box"></div>
+            </div>
+        </section>
+
+        <!-- 5. Medidor do Amor -->
+        <section id="medidor" class="section">
+            <div class="container">
+                <h2>Medidor do Amor</h2>
+                <p>Clique no coração para encher o medidor!</p>
+                <div class="progress-container">
+                    <div id="love-bar" class="progress-bar">0%</div>
+                </div>
+                <div id="click-heart" class="big-heart">❤</div>
+                <div id="medidor-message" class="hidden message-box"></div>
+            </div>
+        </section>
+
+
+            <!-- 7. Combine Data e Evento -->
+        <section id="combina" class="section">
+            <div class="container">
+                <h2>Combine Data e Evento</h2>
+                <p>Selecione uma data e depois o evento correspondente!</p>
+                <div class="match-game">
+                    <div id="dates-column" class="match-column"></div>
+                    <div id="events-column" class="match-column"></div>
+                </div>
+                <div id="match-message" class="hidden message-box"></div>
+            </div>
+        </section>
+
+
+
+
+
+        
 
         <!-- Seção 5: Galeria -->
         <section id="galeria" class="section">
