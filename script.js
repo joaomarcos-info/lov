@@ -157,7 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (timeLeft <= 0) endGame();
         }, 1000);
         
-        heartInterval = setInterval(createHeart, 800);
+        heartInterval = setInterval(createHeart, 300);
     }
 
     function endGame() {
@@ -306,7 +306,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { data: "11/01/2026", evento: "Primeiro Beijo" },
         { data: "01/02/2026", evento: "Pedido em Namoro" },
         { data: "31/01/2026", evento: "Primeira vez da Emylle comendo sushi" },
-        { data: "01/01/2025", evento: "Ano Novo" }
+        { data: "31/12/2025", evento: "Ano Novo coversando até de madrugada" }
     ];
     
     // 8. Combine Data e Evento
