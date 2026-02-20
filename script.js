@@ -16,14 +16,37 @@ document.addEventListener('DOMContentLoaded', () => {
     // TEXTO PERSONALIZÁVEL DA CARTA
     const TEXTO_CARTA = `Querida Emylle,
 
-Escrevo esta carta para dizer o quanto você é especial na minha vida. Desde o momento em que nos conhecemos, cada dia tem sido uma aventura maravilhosa ao seu lado.
+    Escrevo esta carta para dizer o quanto você é especial na minha vida. Desde o momento em que nos conhecemos, cada dia tem sido uma aventura maravilhosa ao seu lado.
 
-Seu sorriso ilumina meus dias mais sombrios e sua presença traz uma paz que eu nunca imaginei encontrar. Obrigado por ser minha parceira, minha melhor amiga e o grande amor da minha vida.
+    Seu sorriso ilumina meus dias mais sombrios e sua presença traz uma paz que eu nunca imaginei encontrar. Obrigado por ser minha parceira, minha melhor amiga e o grande amor da minha vida.
 
-Espero que este pequeno site possa expressar pelo menos um pouquinho do carinho imenso que sinto por você.
+    Espero que este pequeno site possa expressar pelo menos um pouquinho do carinho imenso que sinto por você.
 
-Com todo o meu amor,
-João.`;
+    Com todo o meu amor,
+    João.`;
+
+
+    // TEXTO PERSONALIZÁVEL DO JOGO DA MEMÓRIA
+    const MENSAGEM_FINAL_MEMORIA = (tentativas, tempo) => `
+        <h3>Parabéns, meu amor!</h3>
+        <p>Você completou o jogo em <strong>${tentativas}</strong> tentativas e <strong>${tempo}</strong> segundos.</p>
+        <p>Nossa sintonia é perfeita, assim como esses pares!</p>
+    `;
+
+    // TEXTO PERSONALIZÁVEL DO MONTE A FRASE
+    const FRASE_CORRETA = "Eu te amo mais do que tudo no mundo";
+    const MENSAGEM_FINAL_FRASE = `
+        <h3>Frase Perfeita!</h3>
+        <p>Você montou a frase corretamente. E ela é a mais pura verdade!</p>
+    `;
+
+    // TEXTO PERSONALIZÁVEL DO MEDIDOR DO AMOR
+    const MENSAGEM_FINAL_MEDIDOR = `
+        <h3>Amor Infinito!</h3>
+        <p>O medidor explodiu de tanto amor! Não há limites para o que sinto por você.</p>
+    `;
+
+
 
     // EVENTOS DA LINHA DO TEMPO (eventosDoCasal)
     const eventosDoCasal = [
@@ -214,5 +237,99 @@ João.`;
     }
     document.querySelector('.close-modal').onclick = () => modal.style.display = "none";
     window.onclick = (e) => { if(e.target == modal) modal.style.display = "none"; };
+
+
+    // 4. Jogo da Memória
+    const memGrid = document.getElementById('memory-grid'), memTries = document.getElementById('mem-tries'), memTimer = document.getElementById('mem-timer'), memMsg = document.getElementById('mem-message');
+    let cards = [], flipped = [], matched = 0, tries = 0, sec = 0, memInt;
+    const items = ['❤', '❤', '☀', '☀', '⭐', '⭐', '☁', '☁', '🌸', '🌸', '🎁', '🎁', '💍', '💍', '🍷', '🍷'];
+    document.getElementById('start-mem-btn').onclick = (e) => {
+        e.target.classList.add('hidden'); tries = 0; sec = 0; matched = 0; memGrid.innerHTML = '';
+        items.sort(() => Math.random() - 0.5).forEach((val, i) => {
+            const c = document.createElement('div'); c.className = 'memory-card'; c.dataset.val = val;
+            c.innerHTML = `<div class="back">?</div><div class="front">${val}</div>`;
+            c.onclick = () => {
+                if (flipped.length < 2 && !c.classList.contains('flipped')) {
+                    c.classList.add('flipped'); flipped.push(c);
+                    if (flipped.length === 2) {
+                        tries++; memTries.innerText = tries;
+                        if (flipped[0].dataset.val === flipped[1].dataset.val) { matched++; flipped = []; if(matched === 8) { clearInterval(memInt); memMsg.innerHTML = MENSAGEM_FINAL_MEMORIA(tries, sec); memMsg.classList.remove('hidden'); } }
+                        else { setTimeout(() => { flipped.forEach(x => x.classList.remove('flipped')); flipped = []; }, 1000); }
+                    }
+                }
+            };
+            memGrid.appendChild(c);
+        });
+        memInt = setInterval(() => { sec++; memTimer.innerText = sec; }, 1000);
+    };
+
+
+    
+    // 5. Monte a Frase
+    const wordsCont = document.getElementById('words-container'), sentDisp = document.getElementById('sentence-display'), phraseMsg = document.getElementById('phrase-message');
+    let currentPhrase = [];
+    function initPhrase() {
+        wordsCont.innerHTML = ''; sentDisp.innerText = ''; currentPhrase = [];
+        FRASE_CORRETA.split(' ').sort(() => Math.random() - 0.5).forEach(w => {
+            const t = document.createElement('span'); t.className = 'word-tag'; t.innerText = w;
+            t.onclick = () => { t.classList.add('used'); currentPhrase.push(w); sentDisp.innerText = currentPhrase.join(' '); };
+            wordsCont.appendChild(t);
+        });
+    }
+    initPhrase();
+    document.getElementById('check-phrase-btn').onclick = () => {
+        if (sentDisp.innerText === FRASE_CORRETA) { phraseMsg.innerHTML = MENSAGEM_FINAL_FRASE; phraseMsg.classList.remove('hidden'); }
+        else { alert("Tente novamente!"); initPhrase(); }
+    };
+    document.getElementById('reset-phrase-btn').onclick = initPhrase;
+
+    // 6. Medidor do Amor
+    const loveBar = document.getElementById('love-bar'), medMsg = document.getElementById('medidor-message');
+    let lovePct = 0;
+    document.getElementById('click-heart').onclick = () => {
+        if (lovePct < 100) {
+            lovePct += 5; loveBar.style.width = lovePct + '%'; loveBar.innerText = lovePct + '%';
+            if (lovePct >= 100) {
+                medMsg.innerHTML = MENSAGEM_FINAL_MEDIDOR; medMsg.classList.remove('hidden');
+                for(let i=0; i<50; i++) {
+                    const c = document.createElement('div'); c.className = 'confetti'; c.style.left = Math.random()*100+'vw'; c.style.animationDuration = (Math.random()*3+2)+'s'; c.style.backgroundColor = `hsl(${Math.random()*360}, 100%, 50%)`; document.body.appendChild(c);
+                    setTimeout(() => c.remove(), 5000);
+                }
+            }
+        }
+    };
+
+
+
+    // TEXTO PERSONALIZÁVEL DO COMBINE DATA E EVENTO
+    const COMBINACOES_DO_CASAL = [
+        { data: "11/01/2026", evento: "Primeiro Beijo" },
+        { data: "01/02/2026", evento: "Pedido em Namoro" },
+        { data: "31/01/2026", evento: "Primeira vez da Emylle comendo sushi" },
+        { data: "01/01/2025", evento: "Ano Novo" }
+    ];
+    
+    // 8. Combine Data e Evento
+    const dateCol = document.getElementById('dates-column'), eventCol = document.getElementById('events-column'), matchMsg = document.getElementById('match-message');
+    let selDate = null, selEvent = null, matchCount = 0;
+    function initMatch() {
+        dateCol.innerHTML = ''; eventCol.innerHTML = '';
+        COMBINACOES_DO_CASAL.forEach(c => {
+            const d = document.createElement('div'); d.className = 'match-item'; d.innerText = c.data; d.onclick = () => { if(d.classList.contains('matched')) return; document.querySelectorAll('#dates-column .match-item').forEach(x=>x.classList.remove('selected')); d.classList.add('selected'); selDate = c; checkMatch(); }; dateCol.appendChild(d);
+            const e = document.createElement('div'); e.className = 'match-item'; e.innerText = c.evento; e.onclick = () => { if(e.classList.contains('matched')) return; document.querySelectorAll('#events-column .match-item').forEach(x=>x.classList.remove('selected')); e.classList.add('selected'); selEvent = c; checkMatch(); }; eventCol.appendChild(e);
+        });
+    }
+    function checkMatch() {
+        if (selDate && selEvent) {
+            if (selDate.data === selEvent.data) {
+                document.querySelector(`.match-item.selected[onclick*="dates"]`)?.classList.add('matched'); // Simplified selector
+                // Direct approach for matched items
+                Array.from(document.querySelectorAll('.match-item.selected')).forEach(el => { el.classList.remove('selected'); el.classList.add('matched'); });
+                matchCount++; if(matchCount === COMBINACOES_DO_CASAL.length) { matchMsg.innerHTML = "<h3>Perfeito!</h3><p>Você conhece bem nossa história!</p>"; matchMsg.classList.remove('hidden'); }
+            } else { setTimeout(() => document.querySelectorAll('.match-item').forEach(x=>x.classList.remove('selected')), 500); }
+            selDate = null; selEvent = null;
+        }
+    }
+    initMatch();
 
 });
