@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const DATA_INICIO_RELACIONAMENTO = "2022-06-12T19:30:00";
 
     // TEXTO PERSONALIZÁVEL DO JOGO 1 (Corações)
-    const MENSAGEM_FINAL_JOGO1 = (pontos) => `
+    const MENSAGEM_FINAL_JOGO = (pontos) => `
         <h3>Incrível, meu amor!</h3>
         <p>Você capturou <strong>${pontos}</strong> corações!</p>
         <p>Mas saiba que o meu coração você já capturou faz tempo.</p>
@@ -126,9 +126,9 @@ ${NOMES_DO_CASAL.split('&')[0].trim()}`;
     setInterval(updateCounter, 1000); updateCounter();
 
     // 2. Jogo 1: Corações
-    const area1 = document.getElementById('game-area1'), scoreEl1 = document.getElementById('score1'), timerEl1 = document.getElementById('timer1'), msg1 = document.getElementById('game1-message');
+    const area1 = document.getElementById('game-area'), scoreEl1 = document.getElementById('score1'), timerEl1 = document.getElementById('timer1'), msg1 = document.getElementById('game1-message');
     let s1 = 0, t1 = 30, i1, h1;
-    document.getElementById('start-game1-btn').onclick = (e) => {
+    document.getElementById('start-game-btn').onclick = (e) => {
         s1 = 0; t1 = 30; scoreEl1.innerText = 0; e.target.classList.add('hidden'); msg1.classList.add('hidden');
         i1 = setInterval(() => { t1--; timerEl1.innerText = t1; if(t1<=0) { clearInterval(i1); clearInterval(h1); area1.innerHTML = '<button class="btn" onclick="location.reload()">Reiniciar</button>'; msg1.innerHTML = MENSAGEM_FINAL_JOGO1(s1); msg1.classList.remove('hidden'); } }, 1000);
         h1 = setInterval(() => { const h = document.createElement('div'); h.className='heart'; h.style.left=Math.random()*90+'%'; h.style.top=Math.random()*90+'%'; h.onclick=()=>{s1++; scoreEl1.innerText=s1; h.remove();}; area1.appendChild(h); setTimeout(()=>h.remove(), 1000); }, 800);
