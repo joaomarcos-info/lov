@@ -216,3 +216,62 @@ João.`;
     window.onclick = (e) => { if(e.target == modal) modal.style.display = "none"; };
 
 });
+
+
+    // 4. Jogo da Memória
+    const memGrid = document.getElementById('memory-grid'), memTries = document.getElementById('mem-tries'), memTimer = document.getElementById('mem-timer'), memMsg = document.getElementById('mem-message');
+    let cards = [], flipped = [], matched = 0, tries = 0, sec = 0, memInt;
+    const items = ['❤', '❤', '☀', '☀', '⭐', '⭐', '☁', '☁', '🌸', '🌸', '🎁', '🎁', '💍', '💍', '🍷', '🍷'];
+    document.getElementById('start-mem-btn').onclick = (e) => {
+        e.target.classList.add('hidden'); tries = 0; sec = 0; matched = 0; memGrid.innerHTML = '';
+        items.sort(() => Math.random() - 0.5).forEach((val, i) => {
+            const c = document.createElement('div'); c.className = 'memory-card'; c.dataset.val = val;
+            c.innerHTML = `<div class="back">?</div><div class="front">${val}</div>`;
+            c.onclick = () => {
+                if (flipped.length < 2 && !c.classList.contains('flipped')) {
+                    c.classList.add('flipped'); flipped.push(c);
+                    if (flipped.length === 2) {
+                        tries++; memTries.innerText = tries;
+                        if (flipped[0].dataset.val === flipped[1].dataset.val) { matched++; flipped = []; if(matched === 8) { clearInterval(memInt); memMsg.innerHTML = MENSAGEM_FINAL_MEMORIA(tries, sec); memMsg.classList.remove('hidden'); } }
+                        else { setTimeout(() => { flipped.forEach(x => x.classList.remove('flipped')); flipped = []; }, 1000); }
+                    }
+                }
+            };
+            memGrid.appendChild(c);
+        });
+        memInt = setInterval(() => { sec++; memTimer.innerText = sec; }, 1000);
+    };
+
+    // 5. Monte a Frase
+    const wordsCont = document.getElementById('words-container'), sentDisp = document.getElementById('sentence-display'), phraseMsg = document.getElementById('phrase-message');
+    let currentPhrase = [];
+    function initPhrase() {
+        wordsCont.innerHTML = ''; sentDisp.innerText = ''; currentPhrase = [];
+        FRASE_CORRETA.split(' ').sort(() => Math.random() - 0.5).forEach(w => {
+            const t = document.createElement('span'); t.className = 'word-tag'; t.innerText = w;
+            t.onclick = () => { t.classList.add('used'); currentPhrase.push(w); sentDisp.innerText = currentPhrase.join(' '); };
+            wordsCont.appendChild(t);
+        });
+    }
+    initPhrase();
+    document.getElementById('check-phrase-btn').onclick = () => {
+        if (sentDisp.innerText === FRASE_CORRETA) { phraseMsg.innerHTML = MENSAGEM_FINAL_FRASE; phraseMsg.classList.remove('hidden'); }
+        else { alert("Tente novamente!"); initPhrase(); }
+    };
+    document.getElementById('reset-phrase-btn').onclick = initPhrase;
+
+    // 6. Medidor do Amor
+    const loveBar = document.getElementById('love-bar'), medMsg = document.getElementById('medidor-message');
+    let lovePct = 0;
+    document.getElementById('click-heart').onclick = () => {
+        if (lovePct < 100) {
+            lovePct += 5; loveBar.style.width = lovePct + '%'; loveBar.innerText = lovePct + '%';
+            if (lovePct >= 100) {
+                medMsg.innerHTML = MENSAGEM_FINAL_MEDIDOR; medMsg.classList.remove('hidden');
+                for(let i=0; i<50; i++) {
+                    const c = document.createElement('div'); c.className = 'confetti'; c.style.left = Math.random()*100+'vw'; c.style.animationDuration = (Math.random()*3+2)+'s'; c.style.backgroundColor = `hsl(${Math.random()*360}, 100%, 50%)`; document.body.appendChild(c);
+                    setTimeout(() => c.remove(), 5000);
+                }
+            }
+        }
+    };
