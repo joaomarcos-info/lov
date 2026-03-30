@@ -160,7 +160,58 @@
 
     <footer>
         <p>Feito com ❤️ para você</p>
+        <!-- BOTÃO SECRETO: discreto, mas encontrável -->
+        <span id="secret-btn" title="✨">✨</span>
     </footer>
+
+    <!-- MODO EMYLLE: Segunda tela secreta -->
+    <div id="emylle-mode" class="emylle-overlay hidden">
+
+        <!-- Estrelas animadas de fundo -->
+        <div id="stars-container" class="stars-container"></div>
+
+        <!-- Botão de fechar / voltar -->
+        <button id="close-emylle" class="emylle-close-btn">← Voltar</button>
+
+        <!-- Conteúdo principal do modo Emylle -->
+        <div class="emylle-content">
+
+            <!-- Título principal -->
+            <h1 class="emylle-title">Emylle</h1>
+            <p class="emylle-subtitle">Você encontrou esse lugar. Ele foi feito só para você.</p>
+
+            <!-- Grande mensagem de amor -->
+            <div class="emylle-letter">
+                <div id="emylle-letter-text" class="emylle-letter-text"></div>
+            </div>
+
+            <!-- Pétalas caindo -->
+            <div id="petals-container" class="petals-container"></div>
+
+            <!-- Poema interativo: revelar verso a verso -->
+            <div class="emylle-poem-section">
+                <h2 class="emylle-section-title">Um poema para você</h2>
+                <div id="poem-display" class="poem-display"></div>
+                <button id="poem-next-btn" class="emylle-btn">Próximo verso ❤</button>
+            </div>
+
+            <!-- Galeria de razões para amar -->
+            <div class="emylle-reasons-section">
+                <h2 class="emylle-section-title">Por que eu te amo</h2>
+                <div id="reasons-container" class="reasons-container"></div>
+            </div>
+
+            <!-- Botão de promessa -->
+            <div class="emylle-promise-section">
+                <h2 class="emylle-section-title">Minha promessa</h2>
+                <div id="promise-box" class="promise-box">
+                    <p>Clique para abrir sua promessa</p>
+                </div>
+                <div id="promise-text" class="promise-text hidden"></div>
+            </div>
+
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
