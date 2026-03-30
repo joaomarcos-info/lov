@@ -157,7 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (timeLeft <= 0) endGame();
         }, 1000);
         
-        heartInterval = setInterval(createHeart, 300);
+        heartInterval = setInterval(createHeart, 800);
     }
 
     function endGame() {
@@ -306,7 +306,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { data: "11/01/2026", evento: "Primeiro Beijo" },
         { data: "01/02/2026", evento: "Pedido em Namoro" },
         { data: "31/01/2026", evento: "Primeira vez da Emylle comendo sushi" },
-        { data: "31/12/2025", evento: "Ano Novo coversando até de madrugada" }
+        { data: "01/01/2025", evento: "Ano Novo" }
     ];
     
     // 8. Combine Data e Evento
@@ -331,5 +331,170 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     initMatch();
+
+
+    // =============================================
+    // MODO EMYLLE — SEGUNDA TELA SECRETA
+    // =============================================
+
+    // --------------------------------------------------
+    // TEXTOS PERSONALIZÁVEIS DO MODO EMYLLE
+    // --------------------------------------------------
+
+    // MENSAGEM PRINCIPAL DE AMOR PARA A EMYLLE
+    const CARTA_EMYLLE = `Emylle,
+
+Você não sabe, mas desde que você chegou, eu aprendi o que é acordar com um sol afundado no peito. Não o sol que aquece a pele — o outro, aquele que aquece por dentro, que chega antes do corpo em todos os lugares e diz ao mundo que algo bonito está acontecendo aqui.
+
+Esse algo bonito é você.
+
+Eu poderia listar tudo: o jeito que você ri, a forma como você olha para mim quando acha que eu não estou vendo, a leveza que você carrega mesmo sem perceber. Mas nenhuma lista seria suficiente. Você é daquelas pessoas que não cabem em palavras — e eu, que vivo de palavras, fico sem nenhuma toda vez que você sorri.
+
+Obrigado por ser exatamente quem você é. Por não precisar ser diferente. Por fazer com que cada segundo ao seu lado pareça um presente que eu não mereci, mas que pretendo guardar com todo o cuidado do mundo.
+
+Eu te amo, Emylle. Do jeito mais bonito e mais real que eu sei.
+
+Sempre seu,
+João Marcos`;
+
+    // VERSOS DO POEMA (um por clique)
+    const VERSOS_DO_POEMA = [
+        "Antes de você, eu sabia o que era o tempo —",
+        "contava os dias pelo que faltava, nunca pelo que havia.",
+        "Depois de você, aprendi que o presente",
+        "é o único lugar onde vale a pena morar.",
+        "Você não me completou — eu já era inteiro.",
+        "Mas você me mostrou que inteiro pode ser ainda mais.",
+        "E agora eu não sei mais contar o tempo",
+        "sem começar pelo instante em que você chegou."
+    ];
+
+    // RAZÕES PARA AMAR (ícone + texto)
+    const RAZOES_PARA_AMAR = [
+        { icone: "🌙", texto: "Pelo jeito que você dorme" },
+        { icone: "😄", texto: "Pelo seu riso que não avisa quando vem" },
+        { icone: "🤝", texto: "Por segurar minha mão sem eu pedir" },
+        { icone: "✨", texto: "Por ser bonita sem saber que é" },
+        { icone: "💬", texto: "Pelas conversas que não têm hora pra acabar" },
+        { icone: "🌸", texto: "Por tornar o comum extraordinário" },
+        { icone: "🎵", texto: "Por cantar baixinho quando acha que ninguém ouve" },
+        { icone: "❤️", texto: "Por existir exatamente assim" }
+    ];
+
+    // PROMESSA
+    const PROMESSA_EMYLLE = `Eu prometo estar aqui.
+Nos dias fáceis e nos dias que pesam.
+Nos momentos em que você brilha
+e naqueles em que você só precisa de silêncio.
+
+Prometo olhar para você
+da mesma forma que olho agora —
+como se você fosse a coisa mais bonita
+que o mundo decidiu me mostrar.
+
+E prometo nunca deixar você esquecer
+do quanto você é amada.
+
+Isso não tem prazo de validade.
+Isso é para sempre.`;
+
+    // --------------------------------------------------
+    // LÓGICA DO MODO EMYLLE (não modificar abaixo)
+    // --------------------------------------------------
+
+    const emylleMode   = document.getElementById('emylle-mode');
+    const secretBtn    = document.getElementById('secret-btn');
+    const closeEmylle  = document.getElementById('close-emylle');
+    let emylleActive   = false;
+    let emylleInited   = false;
+
+    // Ativar / desativar modo
+    secretBtn.addEventListener('click', () => toggleEmylle(true));
+    closeEmylle.addEventListener('click', () => toggleEmylle(false));
+
+    function toggleEmylle(open) {
+        emylleActive = open;
+        if (open) {
+            emylleMode.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            emylleMode.scrollTop = 0;
+            if (!emylleInited) { initEmylle(); emylleInited = true; }
+        } else {
+            emylleMode.classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+    }
+
+    function initEmylle() {
+        // Estrelas
+        const starsCont = document.getElementById('stars-container');
+        for (let i = 0; i < 150; i++) {
+            const s = document.createElement('div');
+            s.className = 'star';
+            const size = Math.random() * 3 + 1;
+            s.style.cssText = `width:${size}px;height:${size}px;top:${Math.random()*100}%;left:${Math.random()*100}%;animation-duration:${Math.random()*4+2}s;animation-delay:${Math.random()*5}s`;
+            starsCont.appendChild(s);
+        }
+
+        // Pétalas
+        const petalsCont = document.getElementById('petals-container');
+        const petalSymbols = ['🌸', '🌹', '💕', '✨', '🌺'];
+        for (let i = 0; i < 18; i++) {
+            const p = document.createElement('div');
+            p.className = 'petal';
+            p.innerText = petalSymbols[Math.floor(Math.random() * petalSymbols.length)];
+            p.style.left = Math.random() * 100 + 'vw';
+            p.style.animationDuration = (Math.random() * 8 + 6) + 's';
+            p.style.animationDelay = (Math.random() * 10) + 's';
+            p.style.fontSize = (Math.random() * 1 + 0.8) + 'rem';
+            petalsCont.appendChild(p);
+        }
+
+        // Carta com typewriter
+        const cartaEl = document.getElementById('emylle-letter-text');
+        let ci = 0;
+        function typeEmylle() {
+            if (ci < CARTA_EMYLLE.length) {
+                cartaEl.textContent += CARTA_EMYLLE[ci++];
+                setTimeout(typeEmylle, 30);
+            }
+        }
+        setTimeout(typeEmylle, 600);
+
+        // Poema interativo
+        const poemDisplay = document.getElementById('poem-display');
+        const poemBtn     = document.getElementById('poem-next-btn');
+        let versoIdx = 0;
+        function showVerso() {
+            if (versoIdx < VERSOS_DO_POEMA.length) {
+                const v = document.createElement('p');
+                v.className = 'poem-verse';
+                v.innerText = VERSOS_DO_POEMA[versoIdx++];
+                poemDisplay.appendChild(v);
+                if (versoIdx >= VERSOS_DO_POEMA.length) poemBtn.innerText = 'Fim do poema ❤';
+            }
+        }
+        showVerso();
+        poemBtn.addEventListener('click', showVerso);
+
+        // Razões para amar
+        const reasonsCont = document.getElementById('reasons-container');
+        RAZOES_PARA_AMAR.forEach((r, i) => {
+            const card = document.createElement('div');
+            card.className = 'reason-card';
+            card.innerHTML = `<span class="reason-num">${r.icone}</span>${r.texto}`;
+            reasonsCont.appendChild(card);
+            setTimeout(() => card.classList.add('visible'), 200 + i * 150);
+        });
+
+        // Promessa
+        const promiseBox  = document.getElementById('promise-box');
+        const promiseText = document.getElementById('promise-text');
+        promiseBox.addEventListener('click', () => {
+            promiseBox.classList.add('hidden');
+            promiseText.innerText = PROMESSA_EMYLLE;
+            promiseText.classList.remove('hidden');
+        });
+    }
 
 });
