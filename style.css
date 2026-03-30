@@ -544,3 +544,268 @@ footer {
 
 .match-item.selected { border-color: var(--primary-color); background: var(--secondary-color); }
 .match-item.matched { background: #d4edda; border-color: #28a745; cursor: default; }
+
+/* =============================================
+   MODO EMYLLE — SEGUNDA TELA SECRETA
+   (Não altera nenhum estilo existente)
+   ============================================= */
+
+/* Botão secreto no footer */
+#secret-btn {
+    display: inline-block;
+    margin-top: 20px;
+    font-size: 0.6rem;
+    opacity: 0.15;
+    cursor: pointer;
+    transition: opacity 0.4s;
+    user-select: none;
+}
+#secret-btn:hover { opacity: 0.5; }
+
+/* Overlay principal do modo Emylle */
+.emylle-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: #0a0015;
+    z-index: 9000;
+    overflow-y: auto;
+    transition: opacity 0.8s ease;
+}
+
+.emylle-overlay.hidden { display: none !important; }
+
+/* Estrelas */
+.stars-container {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.star {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    animation: twinkle linear infinite;
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0.2; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.4); }
+}
+
+/* Botão voltar */
+.emylle-close-btn {
+    position: fixed;
+    top: 20px; left: 20px;
+    background: rgba(255,255,255,0.1);
+    color: #ffd6e7;
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 10px 20px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 1rem;
+    z-index: 9100;
+    transition: background 0.3s;
+    backdrop-filter: blur(5px);
+}
+.emylle-close-btn:hover { background: rgba(255,255,255,0.2); }
+
+/* Conteúdo geral */
+.emylle-content {
+    position: relative;
+    z-index: 9050;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 120px 30px 80px;
+    text-align: center;
+    color: #ffd6e7;
+}
+
+/* Título */
+.emylle-title {
+    font-size: 5rem;
+    font-family: 'Georgia', serif;
+    font-style: italic;
+    color: #fff;
+    text-shadow: 0 0 40px rgba(255, 100, 150, 0.8), 0 0 80px rgba(255, 50, 100, 0.4);
+    animation: glow 3s ease-in-out infinite alternate;
+    margin-bottom: 10px;
+}
+
+@keyframes glow {
+    from { text-shadow: 0 0 20px rgba(255,100,150,0.6); }
+    to   { text-shadow: 0 0 60px rgba(255,100,150,1), 0 0 100px rgba(255,50,100,0.6); }
+}
+
+.emylle-subtitle {
+    font-size: 1.2rem;
+    color: rgba(255,214,231,0.7);
+    margin-bottom: 60px;
+    font-style: italic;
+}
+
+/* Carta de amor */
+.emylle-letter {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,100,150,0.3);
+    border-radius: 20px;
+    padding: 40px;
+    margin-bottom: 70px;
+    backdrop-filter: blur(10px);
+    text-align: left;
+}
+
+.emylle-letter-text {
+    font-family: 'Georgia', serif;
+    font-size: 1.2rem;
+    line-height: 2;
+    color: #ffeef5;
+    white-space: pre-wrap;
+}
+
+/* Pétalas */
+.petals-container {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 9010;
+}
+
+.petal {
+    position: absolute;
+    top: -30px;
+    font-size: 1.2rem;
+    animation: petalFall linear infinite;
+    opacity: 0.8;
+}
+
+@keyframes petalFall {
+    0%   { transform: translateY(0) rotate(0deg) translateX(0); opacity: 0.8; }
+    100% { transform: translateY(110vh) rotate(360deg) translateX(40px); opacity: 0; }
+}
+
+/* Seções internas */
+.emylle-section-title {
+    font-size: 2rem;
+    color: #ffb3cc;
+    margin-bottom: 30px;
+    font-family: 'Georgia', serif;
+    font-style: italic;
+}
+
+/* Poema */
+.emylle-poem-section { margin-bottom: 70px; }
+
+.poem-display {
+    min-height: 80px;
+    font-family: 'Georgia', serif;
+    font-size: 1.3rem;
+    font-style: italic;
+    color: #ffd6e7;
+    line-height: 2;
+    margin-bottom: 20px;
+    transition: opacity 0.5s;
+}
+
+.poem-verse {
+    animation: fadeIn 0.8s ease;
+    margin-bottom: 8px;
+}
+
+/* Razões para amar */
+.emylle-reasons-section { margin-bottom: 70px; }
+
+.reasons-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.reason-card {
+    background: rgba(255,100,150,0.1);
+    border: 1px solid rgba(255,100,150,0.3);
+    border-radius: 15px;
+    padding: 20px;
+    font-size: 1rem;
+    color: #ffeef5;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s ease;
+    cursor: default;
+}
+
+.reason-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.reason-card:hover {
+    background: rgba(255,100,150,0.25);
+    transform: scale(1.03);
+}
+
+.reason-card .reason-num {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: 8px;
+}
+
+/* Promessa */
+.emylle-promise-section { margin-bottom: 80px; }
+
+.promise-box {
+    background: rgba(255,100,150,0.15);
+    border: 2px dashed rgba(255,100,150,0.5);
+    border-radius: 20px;
+    padding: 40px;
+    cursor: pointer;
+    transition: all 0.4s;
+    font-size: 1.2rem;
+    color: #ffb3cc;
+}
+
+.promise-box:hover {
+    background: rgba(255,100,150,0.25);
+    border-style: solid;
+}
+
+.promise-text {
+    margin-top: 20px;
+    font-family: 'Georgia', serif;
+    font-size: 1.2rem;
+    line-height: 2;
+    color: #ffeef5;
+    font-style: italic;
+    animation: fadeIn 1s ease;
+    white-space: pre-wrap;
+}
+
+/* Botão padrão do modo Emylle */
+.emylle-btn {
+    background: rgba(255,77,109,0.3);
+    color: #ffd6e7;
+    border: 1px solid rgba(255,77,109,0.5);
+    padding: 12px 28px;
+    font-size: 1rem;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s;
+    backdrop-filter: blur(5px);
+}
+
+.emylle-btn:hover {
+    background: rgba(255,77,109,0.6);
+    transform: scale(1.05);
+}
+
+/* Responsividade do modo Emylle */
+@media (max-width: 600px) {
+    .emylle-title { font-size: 3.5rem; }
+    .emylle-content { padding: 100px 20px 60px; }
+    .reasons-container { grid-template-columns: 1fr 1fr; }
+}
